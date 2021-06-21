@@ -21,6 +21,7 @@ public class Menu {
     }
 
     public void printMainMenu() {
+        System.out.println("-----------------------------");
         System.out.println("What would you like to do?\n" +
                 "    1) List Venues\n" +
                 "    Q) Quit");
@@ -65,7 +66,7 @@ public class Menu {
                 "    R) Return to Previous Screen");
     }
 
-    public String askUserDate() {
+    public String  askUserDate() {
         System.out.println("When do you need the space?(yyyy-MM-dd)");
         return getUserRespond();
     }
@@ -73,12 +74,12 @@ public class Menu {
     public String askUserDays() {
         System.out.println("How many days will you need the space?");
         return getUserRespond();
+
     }
 
     public String askUserAttendees() {
         System.out.println("How many people will be in attendance?");
         return getUserRespond();
-
     }
 
     public void printAvailableSpaces(List<Space> getAvailableSpace, int getUserDays) {

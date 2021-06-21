@@ -1,7 +1,6 @@
 package com.techelevator.model;
 
 public class Venue {
-
     private long id;
     private String name;
     private String city;

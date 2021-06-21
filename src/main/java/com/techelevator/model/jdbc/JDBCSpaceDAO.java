@@ -35,16 +35,13 @@ public class JDBCSpaceDAO implements SpaceDAO {
         int startMonth = startDate.getMonthValue();
         int endMonth = endDate.getMonthValue();
         List<Space> spaceList = new ArrayList<>();
-        String sql = "SELECT DISTINCT s.id, s.venue_id, s.name, s.is_accessible, s.open_from, s.open_to,CAST(daily_rate as decimal(25,2)), s.max_occupancy\n" +
-                "FROM space s \n" +
-                "WHERE s.venue_id = ? AND (? >= open_from OR open_from IS NULL) AND (? < open_to OR open_to IS NULL) \n" +
-                "AND s.id NOT IN (SELECT space.id FROM space\n" +
-                "JOIN reservation r ON r.space_id = space.id\n" +
-                "WHERE space.max_occupancy < ?\n" +
-                "OR (? <= r.end_date AND ? >= r.start_date))" +
+        String sql = "SELECT s.id, s.venue_id, s.name, s.is_accessible, s.open_from, s.open_to, CAST(daily_rate as decimal(25,2)), s.max_occupancy\n" +
+                "FROM space s\n" +
+                "LEFT JOIN (SELECT r.space_id FROM reservation r WHERE (? <= r.end_date OR ? <= r.start_date)) a ON a.space_id = s.id\n" +
+                "WHERE a.space_id IS NULL AND s.venue_id = ? AND ? <= s.max_occupancy AND (? >= open_from OR open_from IS NULL) AND (? < open_to OR open_to IS NULL) \n" +
                 "ORDER BY daily_rate DESC\n" +
                 "LIMIT 5;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, venueId, startMonth, endMonth, numberOfAttendees,startDate, endDate);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, startDate, endDate, venueId, numberOfAttendees, startMonth, endMonth);
         while (results.next()){
             Space space = mapRowToSpace(results);
             spaceList.add(space);

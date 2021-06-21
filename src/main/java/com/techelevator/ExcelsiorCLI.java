@@ -15,26 +15,24 @@ import java.util.List;
 
 
 public class ExcelsiorCLI {
-
-    private Menu menu;
-    private ReservationDAO reservationDAO;
-    private SpaceDAO spaceDAO;
-    private VenueDAO venueDAO;
-    boolean venueSpaceListRunning;
-    boolean detailsIsRunning;
-    boolean venueListRun;
     private static final String VIEW_VENUES = "1";
     private static final String VIEW_SPACES = "1";
     private static final String RESERVE_A_SPACE = "1";
     private static final String QUIT = "Q";
     private static final String RETURN_TO_PREVIOUS_SCREEN = "R";
+    private boolean venueSpaceListRunning;
+    private boolean detailsIsRunning;
+    private boolean venueListRun;
+    private Menu menu;
+    private ReservationDAO reservationDAO;
+    private SpaceDAO spaceDAO;
+    private VenueDAO venueDAO;
 
     public ExcelsiorCLI(DataSource datasource) {
         menu = new Menu();
         reservationDAO = new JDBCReservationDAO(datasource);
         spaceDAO = new JDBCSpaceDAO(datasource);
         venueDAO = new JDBCVenueDAO(datasource);
-
     }
 
     public static void main(String[] args) {
@@ -131,14 +129,12 @@ public class ExcelsiorCLI {
                 menu.printErrorMessage(startDate + " is before today!");
                 throw new Exception();
             }
-
             int getUserDays = Integer.parseInt(menu.askUserDays());
             LocalDate endDate = startDate.plusDays(getUserDays);
             if (getUserDays < 0) {
                 menu.printErrorMessage("Day cannot be negative!");
                 throw new Exception();
             }
-
             int getUserAttendees = Integer.parseInt(menu.askUserAttendees());
             if (getUserAttendees < 0) {
                 menu.printErrorMessage("Attendees cannot be negative!");
@@ -159,7 +155,6 @@ public class ExcelsiorCLI {
 
     public void handleReservationReport(List<Space> availableSpaceList, int getUserAttendees,
                                         LocalDate startDate, LocalDate endDate, Venue venue) throws Exception {
-
         menu.askUserReserveChoice();
         int reserveRespond = Integer.parseInt(menu.getUserRespond());
 
@@ -177,9 +172,6 @@ public class ExcelsiorCLI {
                     venueSpaceListRunning = false;
                     detailsIsRunning = false;
                     venueListRun = false;
-                }
-                else {
-                    menu.printErrorMessage("Sorry reservation choice is not available!");
                 }
             }
         }
