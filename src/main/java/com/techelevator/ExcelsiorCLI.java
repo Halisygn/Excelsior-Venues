@@ -125,24 +125,21 @@ public class ExcelsiorCLI {
     private void handleReserveASpace(Venue venue) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            menu.askUserDate();
-            String getUserDate = menu.getUserRespond();
+            String getUserDate = menu.askUserDate();
             LocalDate startDate = LocalDate.parse(getUserDate, formatter);
             if (startDate.isBefore(LocalDate.now())) {
                 menu.printErrorMessage(startDate + " is before today!");
                 throw new Exception();
             }
 
-            menu.askUserDays();
-            int getUserDays = Integer.parseInt(menu.getUserRespond());
+            int getUserDays = Integer.parseInt(menu.askUserDays());
             LocalDate endDate = startDate.plusDays(getUserDays);
             if (getUserDays < 0) {
                 menu.printErrorMessage("Day cannot be negative!");
                 throw new Exception();
             }
 
-            menu.askUserAttendees();
-            int getUserAttendees = Integer.parseInt(menu.getUserRespond());
+            int getUserAttendees = Integer.parseInt(menu.askUserAttendees());
             if (getUserAttendees < 0) {
                 menu.printErrorMessage("Attendees cannot be negative!");
                 throw new Exception();

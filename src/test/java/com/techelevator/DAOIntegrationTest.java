@@ -25,10 +25,6 @@ public abstract class DAOIntegrationTest {
 	 * transaction
 	 */
 	private static SingleConnectionDataSource dataSource;
-	JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-	private JDBCVenueDAO venueDAO;
-	private JDBCReservationDAO reservationDAO;
-	private JDBCSpaceDAO spaceDAO;
 
 	/*
 	 * Before any tests are run, this method initializes the datasource for testing.

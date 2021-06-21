@@ -65,16 +65,20 @@ public class Menu {
                 "    R) Return to Previous Screen");
     }
 
-    public void askUserDate() {
+    public String askUserDate() {
         System.out.println("When do you need the space?(yyyy-MM-dd)");
+        return getUserRespond();
     }
 
-    public void askUserDays() {
+    public String askUserDays() {
         System.out.println("How many days will you need the space?");
+        return getUserRespond();
     }
 
-    public void askUserAttendees() {
+    public String askUserAttendees() {
         System.out.println("How many people will be in attendance?");
+        return getUserRespond();
+
     }
 
     public void printAvailableSpaces(List<Space> getAvailableSpace, int getUserDays) {
